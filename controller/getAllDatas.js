@@ -1,5 +1,6 @@
 import { client } from "../db.js";
 import axios from "axios";
+
 import cheerio, { html } from "cheerio";
 import express from "express";
 import { addFridgeToDb, addToAtlas, refreshAllAcDetails, refreshAllEarPhoneDetails, refreshAllFridgeDetails, refreshAllLaptopDetails, updateAc, updateAllEarPhones, updateAllLaptopDetails, updateAllMobilesDetails } from "./dbControls.js";
