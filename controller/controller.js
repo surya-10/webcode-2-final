@@ -117,7 +117,7 @@ function getMatchProducts(prodList, allProd){
 // },time)
 
 setInterval(async()=>{
-    let response = await axios.get(`https://www.flipkart.com/search?q=laptops&page=1`);
+    let response = await axios.get(`https://www.flipkart.com/search?q=laptops`);
     let html = response.data;
     let $ = cheerio.load(html);
     const title = $('title').text();
