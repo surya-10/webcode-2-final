@@ -7,7 +7,7 @@ import { addToAtlas, findAllAcData, findAllEarPhonesData, findAllFridgeData, fin
 let router = express.Router();
 
 
-let time = 5000;
+let time = 12*60*60*1000;
 router.get("/all", async (req, res) => {
     try {
         let mobiles = await findAllMobilData();
