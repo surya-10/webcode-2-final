@@ -97,24 +97,24 @@ function getMatchProducts(prodList, allProd){
     return resultedArr;
 }
 
-setInterval(async()=>{
-    let response = await axios.get(`https://www.flipkart.com/search?q=mobiles&page=1`);
-    let html = response.data;
-    let $ = cheerio.load(html);
-    const title = $('title').text();
-    let productTitles = [];
-    $('._1AtVbE').each((index, element) => {
-        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
-        obj.title = $(element).find("._4rR01T").text().toLowerCase();
-        obj.image = $(element).find("._396cs4").attr("src");
-        obj.rating = $(element).find("._3LWZlK").text();
-        obj.price = $(element).find("._3I9_wc").text();
-        obj.finalPrice = $(element).find("._30jeq3").text();
-        productTitles.push(obj);
-    });
+// setInterval(async()=>{
+//     let response = await axios.get(`https://www.flipkart.com/search?q=mobiles&page=1`);
+//     let html = response.data;
+//     let $ = cheerio.load(html);
+//     const title = $('title').text();
+//     let productTitles = [];
+//     $('._1AtVbE').each((index, element) => {
+//         let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+//         obj.title = $(element).find("._4rR01T").text().toLowerCase();
+//         obj.image = $(element).find("._396cs4").attr("src");
+//         obj.rating = $(element).find("._3LWZlK").text();
+//         obj.price = $(element).find("._3I9_wc").text();
+//         obj.finalPrice = $(element).find("._30jeq3").text();
+//         productTitles.push(obj);
+//     });
     
-    let result = await updateAllMobilesDetails(productTitles);
-},time)
+//     let result = await updateAllMobilesDetails(productTitles);
+// },time)
 
 setInterval(async()=>{
     let response = await axios.get(`https://www.flipkart.com/search?q=laptops&page=1`);
