@@ -11,7 +11,7 @@ let time = 12*60*60*1000;
 
 //mobiles-----------------------------
 
-async function getAllMobiles() {
+export async function getAllMobiles() {
     let response = await axios.get(`https://www.flipkart.com/search?q=mobiles&page=1`);
     let html = response.data;
     let $ = cheerio.load(html);
@@ -51,7 +51,7 @@ setInterval(async()=>{
 
 //laptops------------------------------
 
-async function getAllLaptops(){
+export async function getAllLaptops(){
     let response = await axios.get(`https://www.flipkart.com/search?q=laptops&page=1`);
     let html = response.data;
     let $ = cheerio.load(html);
@@ -94,7 +94,7 @@ setInterval(async()=>{
 
 // get all fridge
 
-async function getAllFridge(){
+export async function getAllFridge(){
     let response = await axios.get(`https://www.flipkart.com/search?q=fridge`);
     let html = response.data;
     let $ = cheerio.load(html);
@@ -132,7 +132,7 @@ setInterval(async()=>{
 
 
 
-async function getAllAc(){
+export async function getAllAc(){
     let response = await axios.get(`https://www.flipkart.com/search?q=ac`);
     let html = response.data;
     let $ = cheerio.load(html);
@@ -169,7 +169,7 @@ setInterval(async()=>{
 
 //earphones
 
-async function getAllHeadPhones(){
+export async function getAllHeadPhones(){
     let response = await axios.get(`https://www.flipkart.com/search?q=earphones`);
     let html = response.data;
     let $ = cheerio.load(html);
@@ -205,8 +205,8 @@ setInterval(async()=>{
     let result = await refreshAllEarPhoneDetails(allEarPhones);
 }, time);
 
-export let refreshAllMobiles = await getAllMobiles();
-export let refreshAllLaptops = await getAllLaptops();
-export let fridgeData = await getAllFridge();
-export let watches = await getAllAc();
-export let earPhones = await getAllHeadPhones();
+// export let refreshAllMobiles = await getAllMobiles();
+// export let refreshAllLaptops = await getAllLaptops();
+// export let fridgeData = await getAllFridge();
+// export let watches = await getAllAc();
+// export let earPhones = await getAllHeadPhones();

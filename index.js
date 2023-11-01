@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 // import { client } from "./db.js";
 dotenv.config()
 import { searchRoute } from "./controller/controller.js";
-// import {fridgeData, watches, earPhones, refreshAllLaptops, refreshAllMobiles } from "./controller/getAllDatas.js";
+import { getAllMobiles, getAllAc, getAllFridge, getAllHeadPhones, getAllLaptops } from "./controller/getAllDatas.js";
+
 let app = express();
 app.use(cors())
 app.use(express.json());
