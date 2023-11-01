@@ -9,7 +9,8 @@ let app = express();
 app.use(cors())
 app.use(express.json());
 
-let port = process.env.port;
+let port = process.env.PORT;
 
-app.listen(port, ()=>console.log("server connected"));
+
 app.use("/", searchRoute);
+app.listen(port, ()=>console.log("server connected"));
