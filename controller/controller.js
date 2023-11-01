@@ -2,6 +2,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 import express from "express";
 import { addToAtlas, findAllAcData, findAllEarPhonesData, findAllFridgeData, findAllLaptopData, findAllMobilData } from "./dbControls.js";
+import { getAllMobiles, getAllAc, getAllFridge, getAllHeadPhones, getAllLaptops } from "./controller/getAllDatas.js";
 
 let router = express.Router();
 
