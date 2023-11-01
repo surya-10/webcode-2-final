@@ -2,11 +2,12 @@ import axios from "axios";
 import cheerio from "cheerio";
 import express from "express";
 import { addToAtlas, findAllAcData, findAllEarPhonesData, findAllFridgeData, findAllLaptopData, findAllMobilData } from "./dbControls.js";
-import { getAllMobiles, getAllAc, getAllFridge, getAllHeadPhones, getAllLaptops } from "./controller/getAllDatas.js";
+// import { getAllMobiles, getAllAc, getAllFridge, getAllHeadPhones, getAllLaptops } from "./getAllDatas.js";
 
 let router = express.Router();
 
 
+let time = 12*60*60*1000;
 router.get("/all", async (req, res) => {
     try {
         let mobiles = await findAllMobilData();
@@ -95,5 +96,96 @@ function getMatchProducts(prodList, allProd){
     }
     return resultedArr;
 }
+
+setInterval(async()=>{
+    let response = await axios.get(`https://www.flipkart.com/search?q=mobiles&page=1`);
+    let html = response.data;
+    let $ = cheerio.load(html);
+    const title = $('title').text();
+    let productTitles = [];
+    $('._1AtVbE').each((index, element) => {
+        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+        obj.title = $(element).find("._4rR01T").text().toLowerCase();
+        obj.image = $(element).find("._396cs4").attr("src");
+        obj.rating = $(element).find("._3LWZlK").text();
+        obj.price = $(element).find("._3I9_wc").text();
+        obj.finalPrice = $(element).find("._30jeq3").text();
+        productTitles.push(obj);
+    });
+    
+    let result = await updateAllMobilesDetails(productTitles);
+},time)
+
+setInterval(async()=>{
+    let response = await axios.get(`https://www.flipkart.com/search?q=laptops&page=1`);
+    let html = response.data;
+    let $ = cheerio.load(html);
+    const title = $('title').text();
+    let productTitles = [];
+    $('._1AtVbE').each((index, element) => {
+        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+        obj.title = $(element).find("._4rR01T").text().toLowerCase();
+        obj.image = $(element).find("._396cs4").attr("src");
+        obj.rating = $(element).find("._3LWZlK").text();
+        obj.price = $(element).find("._3I9_wc").text();
+        obj.finalPrice = $(element).find("._30jeq3").text();
+        productTitles.push(obj);
+    });
+    let result = await refreshAllLaptopDetails(productTitles);
+},time);
+
+setInterval(async()=>{
+    let response = await axios.get(`https://www.flipkart.com/search?q=fridge`);
+    let html = response.data;
+    let $ = cheerio.load(html);
+    const title = $('title').text();
+    let allFridgeData = [];
+    $("._1AtVbE").each((index, element)=>{
+        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+        obj.title = $(element).find("._4rR01T").text().toLowerCase();
+        obj.image = $(element).find("._396cs4").attr("src");
+        obj.rating = $(element).find("._3LWZlK").text();
+        obj.price = $(element).find("._3I9_wc").text();
+        obj.finalPrice = $(element).find("._30jeq3").text();
+        allFridgeData.push(obj);
+    })
+    let result = await refreshAllFridgeDetails(allFridgeData);
+},time)
+
+setInterval(async()=>{
+    let response = await axios.get(`https://www.flipkart.com/search?q=ac`);
+    let html = response.data;
+    let $ = cheerio.load(html);
+    const title = $('title').text();
+    let allAC = [];
+    $("._1AtVbE").each((index, element)=>{
+        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+        obj.title = $(element).find("._4rR01T").text().toLowerCase();
+        obj.image = $(element).find("._396cs4").attr("src");
+        obj.rating = $(element).find("._3LWZlK").text();
+        obj.finalPrice = $(element).find("._30jeq3").text();
+        obj.price = $(element).find("._3I9_wc").text();
+        allAC.push(obj);
+    });
+    let result = await refreshAllAcDetails(allAC);
+}, time);
+
+setInterval(async()=>{
+    let response = await axios.get(`https://www.flipkart.com/search?q=earphones`);
+    let html = response.data;
+    let $ = cheerio.load(html);
+    let allEarPhones = [];
+    $("._4ddWXP").each((index, element)=>{
+        let obj = { title: "", image: "", rating: "", price: "", finalPrice: "" }
+        obj.title = $(element).find(".s1Q9rs").text().toLowerCase();
+        obj.image = $(element).find("._396cs4").attr("src");
+        obj.rating= $(element).find("._3LWZlK").text();
+        obj.price = $(element).find("._3I9_wc").text();
+        obj.finalPrice = $(element).find("._30jeq3").text();
+        allEarPhones.push(obj);
+    })
+    
+    let result = await refreshAllEarPhoneDetails(allEarPhones);
+}, time);
 
 export let searchRoute = router;
